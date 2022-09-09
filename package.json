@@ -1,0 +1,42 @@
+{
+  "name": "st.db",
+  "version": "5.0.2",
+  "description": "A high-resolution local database that uses precise algorithms to easily record data in local files within a project with persistent JSON and YAML support designed to be easy to set up and use",
+  "main": "./src/Database.js",
+  "types": "./src/Database.d.ts",
+  "files": [
+    "/src"
+  ],
+  "keywords": [
+    "st.db",
+    "json",
+    "yaml",
+    "yml",
+    "mongo",
+    "db",
+    "encryption",
+    "encrypt",
+    "st",
+    "discord",
+    "database",
+    "quick.db",
+    "object",
+    "json",
+    "map",
+    "shuruhatik"
+  ],
+  "dependencies": {
+    "string-crypto": "^2.0.2",
+    "typedoc": "^0.23.14",
+    "typescript": "^4.7.4",
+    "yaml": "^2.1.1"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "shuruhatik",
+  "license": "CC BY-NC-ND 4.0",
+  "devDependencies": {
+    "@types/node": "^18.7.6"
+  }
+}
