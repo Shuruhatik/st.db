@@ -43,9 +43,9 @@ const { Database } = require('st.db');
 ```js
 import { Database } from 'st.db';
 ```
-### [Deno support](https://deno.land/x/st_db)
+### [Deno support](https://deno.land)
 ```js
-import { Database } from 'https://api.deno.land/webhook/gh/st_db';
+import { Database } from 'https://esm.sh/st.db';
 ```
 
 ## Links
