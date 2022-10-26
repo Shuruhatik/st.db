@@ -34,12 +34,18 @@ pnpm add st.db@beta
 ```
 
 ## Usage
+### Using Node.js `require()`
 ```javascript
-// Using Node.js `require()`
 const { Database } = require('st.db');
+```
 
-// TypeScript/ES Module support
+### TypeScript/ES Module support
+```js
 import { Database } from 'st.db';
+```
+### [Deno support](https://deno.land/x/st_db)
+```js
+import { Database } from 'https://api.deno.land/webhook/gh/st_db';
 ```
 
 ## Links
