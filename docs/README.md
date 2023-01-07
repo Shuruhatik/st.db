@@ -2,19 +2,17 @@
 <div align="center">
 	<br />
 	<p>
-		<a href="https://discord.js.org"><img src="https://i.imgur.com/e0gD6qv.png" width="546" alt="discord.js" /></a>
+		<a href="https://st-db.netlify.app/"><img src="https://i.imgur.com/N0odZBu.png" alt="st.db" /></a></br>
+		<a href="https://www.npmjs.com/package/st.db"><img src="https://img.shields.io/npm/dt/st.db?color=4B68F6&style=for-the-badge" alt="NPM Downloads" /></a>
+		<a href="https://www.npmjs.com/package/st.db"><img src="https://img.shields.io/npm/v/st.db?color=04DCC6&style=for-the-badge" alt="npm Version" /></a>
+		<a href="https://buymeacoff.ee/shuruhatik"><img src="https://i.imgur.com/GFGXdv0.png" alt="buymeacoff.ee/shuruhatik" /></a>
 	</p>
-	<p>
-		<a href="https://www.npmjs.com/package/st.db"><img src="https://img.shields.io/npm/dt/st.db?color=%2300D3A4&style=for-the-badge" alt="NPM Downloads" /></a>
-		<a href="https://www.npmjs.com/package/st.db"><img src="https://img.shields.io/npm/v/st.db?color=%2302AC30&style=for-the-badge" alt="npm Version" /></a>
-		<a href="https://www.npmjs.com/package/st.db"><img src="https://img.shields.io/npm/types/st.db?style=for-the-badge" alt="Types" /></a>
-	</p>
-	<p>
-		<img src="https://i.imgur.com/e4PtZV6.png" width="212" height="44" alt="Powered by Enormous" />
+    <p>
+		<img src="https://i.imgur.com/0Vm4FRF.png" width="212" height="44" alt="Powered by Shuruhatik"/>
 	</p>
 </div>
 
-## About
+## [![Verified on Openbase](https://badges.openbase.com/js/verified/st.db.svg?style=openbase&token=n0ITf+jfjG5ZaYVYIbhXfTnRU4pK5LyewQE1aIMAHls=)](https://openbase.com/js/st.db?utm_source=embedded&amp;utm_medium=badge&amp;utm_campaign=rate-badge) About
 A high-resolution local database that uses precise algorithms to easily record data in local files within a project with persistent [JSON](https://en.wikipedia.org/wiki/JSON) and [YML](https://en.wikipedia.org/wiki/YAML) support designed to be easy to set up and use
 - Beginner friendly     
 - Easy to use    
@@ -194,7 +192,10 @@ profile:
     - TS
     - C++
 ```
+## Sponsors 
+- Love what I do? Send me some [coffee](https://buymeacoff.ee/shuruhatik)!?  ☕
 
+- Can't send coffees?  😥  Nominate me for a  **[st.db: Reviews | Openbase](https://openbase.com/js/st.db/reviews)**  instead! Your support will help me to continue working on open-source projects like this.  🙏😇
 ## Help
 If you don't understand something in the documentation, you are experiencing problems, or you just need a gentle
 nudge in the right direction, please don't hesitate to join our official [Discord Server](https://dsc.gg/shuruhatik) .
