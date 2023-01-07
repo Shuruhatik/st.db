@@ -12,9 +12,10 @@ import { EventEmitter } from 'node:events';
 import { writeFileSync, readFileSync, statSync, unlinkSync } from "node:fs";
 import Crypto from "string-crypto"
 import { ElementInData } from "./ElementInData.js"
-
+import { Action } from "./Action.js"
 
 interface DatabaseOptions {
+    debug?: boolean,
     pathOutsideTheProject?: boolean,
     autoDecrypt?: boolean,
     encryption?: { password: string, digest?: string },
@@ -27,32 +28,36 @@ interface DatabaseOptions {
 }
 class Database extends EventEmitter {
     public pathOutsideTheProject: boolean
+    public options: DatabaseOptions
     readonly autoDecrypt: boolean
     readonly fileExtension: string
     readonly isYML: boolean
     readonly path: string
     readonly readyInDate: Date
+    public inputPath: string
     readonly encryption?: boolean
     private encryptionPassword?: string
-    private storageStyle: {
+    public storageStyle: {
         writing_format: (input: any) => any,
         reading_format: (input: any) => any
     }
     readonly file_exists: boolean
     public crypto: any
-    private stringify: (x: any) => any
-    private parse: (x: any) => any
+    public stringify: (x: any) => any
+    public parse: (x: any) => any
 
     constructor(path: string, options: DatabaseOptions = {}) {
         super();
         //Variables
         if (typeof path != "string") throw Error(formatErrorMessage('The path must be string', 'Database', 'Property', "Path"))
         if (typeof options != "object") throw Error(formatErrorMessage("The options must be object", 'Database', 'Property', "Options"))
+        this.inputPath = path
         this.pathOutsideTheProject = options.pathOutsideTheProject && options.pathOutsideTheProject == true ? true : false
         this.autoDecrypt = options.autoDecrypt && options.autoDecrypt == true ? true : false
         this.fileExtension = path.endsWith("yml") ? "yml" : path.endsWith("yaml") ? "yaml" : "json"
         this.isYML = this.fileExtension == "yml" || this.fileExtension == "yaml" ? true : false
         this.path = pathResolve(path, this.fileExtension, this.pathOutsideTheProject)
+        this.options = options;
         this.readyInDate = new Date();
         if (options.encryption && options.encryption.password) this.encryption = true
         if (options.encryption?.password) this.encryptionPassword = options.encryption.password
@@ -62,16 +67,29 @@ class Database extends EventEmitter {
         this.stringify = options.stringify ? options.stringify : this.isYML == true ? YAML.stringify : JSON_stringify
         this.parse = options.parse ? options.parse : this.isYML == true ? YAML_parse : JSON.parse
         if (this.file_exists != true) createFile(this.path, this.stringify, this.storageStyle)
-        setTimeout(() => this.emit('ready'), 0);
+        setTimeout(() => {
+            this.emit('ready')
+            this.emit('debug', `[${new Date().toISOString().substring(11, 19)}][ST.DB][File ${this.path}] The database has been linked to a file successfully`)
+        }, 0);
+
     }
     /**
      * @description Read the file and return the data
-     * @example <db>.readFileSync()
+     * @example <db>.cache
      * @returns {Collection}
      */
-    readFileSync(): Collection {
+    get cache(): Collection {
         let readFileData = readFileSync(this.path)
         return readFileData.length <= 1 ? new Collection() : new Collection(this.storageStyle.reading_format(this.parse(readFileData)))
+    }
+    /**
+      * @description See the raw data
+      * @example <db>.raw
+      * @returns {Object}
+      */
+    get raw() {
+        let readFileData = readFileSync(this.path)
+        return this.parse(readFileData);
     }
     /**
      * @description Write the data in the file
@@ -84,7 +102,7 @@ class Database extends EventEmitter {
     }
     /**
     * @description set element in database
-    * @example <db>.set({key:`version`,value:"v5"})
+    * @example <db>.set({key:`version`,value:"v6"})
     * @param {*} key Type a key for the element
     * @param {*} value Type a value for the element
     * @returns {Promise<ElementInData>}
@@ -92,8 +110,9 @@ class Database extends EventEmitter {
     async set(key: any, value?: any): Promise<ElementInData> {
         if (key.value) value = key.value; if (key.key) key = key.key
         if (!value && value != 0 || !key && key != 0) throw Error(formatErrorMessage("No key or value found", 'Database', 'Method', "set"))
-        let collection = await this.readFileSync()
+        let collection = await this.cache
         this.emit(collection.has(key) ? 'editElement' : 'addElement', new ElementInData(key, this), value, collection.has(key) ? collection.get(key) : null)
+        this.emit('debug', `[${new Date().toISOString().substring(11, 19)}][ST.DB][File ${this.path}] An item is registered in Database with a name of ${JSON.stringify(key)} and a value of ${JSON.stringify(value)}`)
         await collection.set(key, this.encryption == true ? this.encryptString(value) : value)
         await this.writeFileSync(collection);
         return new ElementInData(key, this)
@@ -116,10 +135,11 @@ class Database extends EventEmitter {
     async delete(key: any): Promise<boolean> {
         if (key.key) key = key.key
         if (!key && key != 0) throw Error(formatErrorMessage("No key found", 'Database', 'Method', "delete"))
-        let data_collection = this.readFileSync()
+        let data_collection = this.cache
         if (data_collection.has(key) == false) return false;
         data_collection.delete(key)
         await this.writeFileSync(data_collection);
+        this.emit('debug', `[${new Date().toISOString().substring(11, 19)}][ST.DB][File ${this.path}] An item has been deleted from the database by name ${JSON.stringify(key)}`)
         return true
     }
     /**
@@ -130,9 +150,10 @@ class Database extends EventEmitter {
     */
     all(limit: number = 0): ElementInData[] {
         let arr: ElementInData[] = [];
-        this.readFileSync().map.forEach((data: any, ID: any, map: Map<any, any>): void => {
+        this.cache.map.forEach((data: any, ID: any, map: Map<any, any>): void => {
             arr.push(new ElementInData(ID, this))
         })
+        this.emit('debug', `[${new Date().toISOString().substring(11, 19)}][ST.DB][File ${this.path}] All database items have been read`)
         return limit > 0 ? arr.splice(0, limit) : arr
     }
     /**
@@ -145,16 +166,31 @@ class Database extends EventEmitter {
         return this.all(limit)
     }
     /**
+    * @description Get all the elements in the database of value
+    * @param {*} value
+    * @example <db>.getByValue({value:`v6`})
+    */
+    getByValue(value: any): { ID: any, typeof: { ID: string, data: string }, data: any }[] | false {
+        if (value.value) value = value.value;
+        if (!value && value != 0) throw Error(formatErrorMessage("No key found", 'Database', 'Method', "get"))
+        let result = this.filter((element: any) => JSON.stringify(element.data) === JSON.stringify(value));
+        return result[0] ? result : false;
+    }
+    /**
     * @description To get the value of a specific key element
     * @example <db>.get({key:`version`})
     * @param {*} key Type a key for the element
     * @returns Boolean
     */
-    get(key: any): any {
+    get(key: any, value?: any): any {
+        if (key.value) value = key.value
         if (key.key) key = key.key
         if (!key && key != 0) throw Error(formatErrorMessage("No key found", 'Database', 'Method', "get"))
-        let data_collection = this.readFileSync()
+
+        let data_collection = this.cache
+        if (value && !data_collection.has(key)) return this.getByValue(value)
         if (!data_collection.has(key)) return;
+        this.emit('debug', `[${new Date().toISOString().substring(11, 19)}][ST.DB][File ${this.path}] An item has been read from the database by name ${JSON.stringify(key)}`)
         return this.autoDecrypt ? this.decryptString(data_collection.get(key)) : data_collection.get(key)
     }
     /**
@@ -167,11 +203,17 @@ class Database extends EventEmitter {
         return this.get(key)
     }
     /**
+     * @description Returns the number of items in the database
+     */
+    get length() {
+        return this.cache.size;
+    }
+    /**
     * @description To get the file size
-    * @example <db>.fileSize()
+    * @example <db>.fileSize
     * @returns {"object"}
     */
-    fileSize(): object {
+    get fileSize() {
         let stats = statSync(`${this.path}`)
         return { byte: stats.size, megaBytes: stats.size / (1024 * 1024), kiloBytes: stats.size / (1024) }
     }
@@ -209,7 +251,7 @@ class Database extends EventEmitter {
     }
     /**
     * @description To pull an element from an array into data
-    * @example <db>.pull({key:`version`,value:"v5"})
+    * @example <db>.pull({key:`version`,value:"v6"})
     * @param {*} key Type a key for the element
     * @returns {Promise<ElementInData>}
     */
@@ -221,14 +263,14 @@ class Database extends EventEmitter {
     }
     /**
     * @description To push an element to an array into data
-    * @example <db>.push({key:`version`,value:"v5"})
+    * @example <db>.push({key:`version`,value:"v6"})
     * @param {*} key Type a key for the element
     * @returns {Promise<void>}
     */
     async push(key: any, value?: any): Promise<void> {
         if (key.value) value = key.value; if (key.key) key = key.key;
         if (!value && value != 0 || !key && key != 0) throw Error(formatErrorMessage("No key or value found", 'Database', 'Method', "push"))
-        let collection = this.readFileSync()
+        let collection = this.cache
         let new_values = collection.has(key) && Array.isArray(collection.get(key)) ? collection.get(key) : []
         if (Array.isArray(value)) value.forEach((v) => new_values.push(v))
         else new_values.push(value)
@@ -238,14 +280,14 @@ class Database extends EventEmitter {
     }
     /**
     * @description To unshift an element to an array into data
-    * @example <db>.unshift({key:`version`,value:["v5"]})
+    * @example <db>.unshift({key:`version`,value:["v6"]})
     * @param {*} key Type a key for the element
     * @returns {"boolean"}
     */
     async unshift(key: any, value?: any): Promise<void> {
         if (key.value) value = key.value; if (key.key) key = key.key;
         if (!value && value != 0 || !key && key != 0) throw Error(formatErrorMessage("No key or value found", 'Database', 'Method', "push"))
-        let collection = this.readFileSync()
+        let collection = this.cache
         if (collection.has(key)) {
             let old_values = collection.get(key);
             let new_values = Array.isArray(old_values) ? old_values : []
@@ -277,7 +319,7 @@ class Database extends EventEmitter {
     has(key: any): boolean {
         if (key.key) key = key.key
         if (!key && key != 0) throw Error(formatErrorMessage("No key found", 'Database', 'Method', "has"))
-        let data_collection = this.readFileSync()
+        let data_collection = this.cache
         return data_collection.has(key)
     }
     /**
@@ -292,7 +334,7 @@ class Database extends EventEmitter {
     * @return {"number"}
     * @example console.log(`Database is up for ${db.uptime} ms.`);
     */
-    uptime(): number {
+    get uptime(): number {
         if (!this.readyInDate) return 0
         else return Date.now() - this.readyInDate.getTime();
     }
@@ -334,7 +376,7 @@ class Database extends EventEmitter {
     * @returns {Promise<void>}
     */
     async reload(timeout: number = 200): Promise<void> {
-        let collection_data = this.readFileSync()
+        let collection_data = this.cache
         await this.clear()
         setTimeout(async () => await this.writeFileSync(collection_data), timeout)
     }
@@ -345,6 +387,8 @@ class Database extends EventEmitter {
      */
     async clear(): Promise<void> {
         await this.writeFileSync(new Collection())
+        this.emit('debug', `[${new Date().toISOString().substring(11, 19)}][ST.DB][File ${this.path}] All database items have been deleted`)
+        return;
     }
     /**
      * @description Delete all data
@@ -352,7 +396,7 @@ class Database extends EventEmitter {
      * @returns {Promise<void>}
      */
     async deleteAll(): Promise<void> {
-        await this.writeFileSync(new Collection())
+        return await this.clear();
     }
     /**
      * @description Destroy the database
@@ -360,6 +404,7 @@ class Database extends EventEmitter {
      * @returns {Promise<void>}
      */
     destroy(): void {
+        this.emit('debug', `[${new Date().toISOString().substring(11, 19)}][ST.DB][File ${this.path}] The database file has been destroyed`)
         try { unlinkSync(`${this.path}`) } catch (err) { throw Error(formatErrorMessage("The data has been destroyed before!", 'Database', 'Method', "destroy")) }
     }
     /**
@@ -414,7 +459,7 @@ class Database extends EventEmitter {
         if (key.goToNegative) goToNegative = key.goToNegative; if (key.operator) operator = key.operator; if (key.value) new_value = key.value; if (key.key) key = key.key;
         if (!new_value && new_value != 0 || !key && key != 0 || !operator) throw Error(formatErrorMessage("No key or value or operator found", 'Database', 'Method', "math"))
         let old_value = this.has({ key }) == true ? this.get({ key }) : 0
-        let data = this.readFileSync()
+        let data = this.cache
         data.math(key, operator, new_value, goToNegative)
         await this.writeFileSync(data)
     }
@@ -439,6 +484,14 @@ class Database extends EventEmitter {
         if (key.value) value = key.value; if (key.key) key = key.key
         if (!value && value != 0 || !key && key != 0) throw Error(formatErrorMessage("No key or value found", 'Database', 'Method', "multiply"))
         return await this.math(key, "*", value);
+    }
+
+    /**
+     * @description Action is a class that is a dummy database where you can implement your methods without affecting the main database itself and save it for later whenever you want!
+     * @example <db>.action()
+     */
+    action(): Action {
+        return new Action(this)
     }
     /**
      * @example <db>.double({key:"coins"})
@@ -499,4 +552,4 @@ class Database extends EventEmitter {
  * @param {ElementInData} elementInData elementInData
  */
 
-export { Collection, Database, ElementInData }
+export { Collection, Database, ElementInData, Action }

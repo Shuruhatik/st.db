@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "CommonJS",
-    "target": "ES2022",
+    "target": "ES2016",
     "sourceMap": true,
     "outDir": "src",
     "forceConsistentCasingInFileNames": true,

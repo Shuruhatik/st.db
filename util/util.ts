@@ -33,13 +33,10 @@ const createFile = (path: string, stringify: (x: any) => any, storageStyle: stor
 };
 
 const pathResolve = (filePath: string, fileExtension: string, pathOutsideTheProject?: boolean): string => {
-    //if (filePath.startsWith(process.cwd())) filePath = filePath.replace(basePath, "");
     if (filePath.startsWith("./")) filePath = filePath.slice(2);
     if (filePath.startsWith("." + path.sep)) filePath = filePath.slice(1);
-    if (!filePath.endsWith("." + fileExtension)) {
-        filePath += `.${fileExtension}`;
-    }
-    return pathOutsideTheProject != true ? path.resolve(`./${filePath}`) : filePath
+    if (!filePath.endsWith("." + fileExtension)) filePath += `.${fileExtension}`;
+    return pathOutsideTheProject != true ? path.resolve(`./${filePath}`) : filePath;
 }
 
 export {
