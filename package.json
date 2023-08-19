@@ -46,7 +46,7 @@
   },
   "author": "shuruhatik",
   "license": "CC BY-NC-ND 4.0",
-  "devDependencies": {
+  "dependencies": {
     "@types/better-sqlite3": "^7.6.4",
     "@types/node": "^18.7.6",
     "@types/pg": "^8.10.2",
