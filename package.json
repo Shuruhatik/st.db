@@ -1,6 +1,6 @@
 {
   "name": "st.db",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "ST.db is a versatile npm package for managing databases with a simple key-value interface. It supports various database types, offers seamless switching between drivers, efficient caching, encryption, and customizable configurations. Ideal for diverse projects with clear documentation.",
   "main": "./src/index.js",
   "repository": {
@@ -59,33 +59,5 @@
     "pg": "^8.11.3",
     "redis": "^4.6.7",
     "yaml": "2.x"
-  },
-  "peerDependencies": {
-    "better-sqlite3": "8.x",
-    "firebase-admin": "11.x",
-    "mongodb": "5.x",
-    "mysql2": "3.x",
-    "pg": "8.x",
-    "yaml": "2.x"
-  },
-  "peerDependenciesMeta": {
-    "better-sqlite3": {
-      "optional": true
-    },
-    "mongodb": {
-      "optional": true
-    },
-    "pg": {
-      "optional": true
-    },
-    "firebase": {
-      "optional": true
-    },
-    "mysql2": {
-      "optional": true
-    },
-    "yaml": {
-      "optional": true
-    }
   }
 }
