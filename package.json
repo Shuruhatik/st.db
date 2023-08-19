@@ -1,0 +1,91 @@
+{
+  "name": "st.db",
+  "version": "7.0.0",
+  "description": "ST.db is a versatile npm package for managing databases with a simple key-value interface. It supports various database types, offers seamless switching between drivers, efficient caching, encryption, and customizable configurations. Ideal for diverse projects with clear documentation.",
+  "main": "./src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shuruhatik/st.db"
+  },
+  "bugs": {
+    "url": "https://github.com/Shuruhatik/st.db/issues"
+  },
+  "homepage": "https://db.shuruhatik.com/",
+  "types": "./src/index.d.ts",
+  "files": [
+    "/src"
+  ],
+  "keywords": [
+    "st.db",
+    "json",
+    "yaml",
+    "yml",
+    "key-value",
+    "db",
+    "encryption",
+    "encrypt",
+    "st",
+    "discord",
+    "database",
+    "documentation",
+    "backend",
+    "mongo",
+    "mongodb",
+    "firebase",
+    "mysql",
+    "sqlite3",
+    "xml",
+    "firestore",
+    "postgres",
+    "json",
+    "map",
+    "shuruhatik"
+  ],
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "shuruhatik",
+  "license": "CC BY-NC-ND 4.0",
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.4",
+    "@types/node": "^18.7.6",
+    "@types/pg": "^8.10.2",
+    "@types/redis": "^4.0.11",
+    "better-sqlite3": "^8.5.1",
+    "firebase": "^10.2.0",
+    "firebase-admin": "11.x",
+    "mongodb": "5.x",
+    "mysql2": "3.x",
+    "pg": "^8.11.3",
+    "redis": "^4.6.7",
+    "yaml": "2.x"
+  },
+  "peerDependencies": {
+    "better-sqlite3": "8.x",
+    "firebase-admin": "11.x",
+    "mongodb": "5.x",
+    "mysql2": "3.x",
+    "pg": "8.x",
+    "yaml": "2.x"
+  },
+  "peerDependenciesMeta": {
+    "better-sqlite3": {
+      "optional": true
+    },
+    "mongodb": {
+      "optional": true
+    },
+    "pg": {
+      "optional": true
+    },
+    "firebase": {
+      "optional": true
+    },
+    "mysql2": {
+      "optional": true
+    },
+    "yaml": {
+      "optional": true
+    }
+  }
+}
