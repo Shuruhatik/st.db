@@ -1,4 +1,4 @@
-import { ElementKey, ElementValue } from '../types/index';
+import { ElementKey, ElementValue, Driver } from '../types/index';
 interface FirebaseConfig {
     apiKey: string;
     authDomain: string;
@@ -7,7 +7,7 @@ interface FirebaseConfig {
     messagingSenderId: string;
     appId: string;
 }
-export declare class FirebaseDriver {
+export declare class FirebaseDriver implements Driver {
     private firebaseConfig;
     private collectionName;
     private db;

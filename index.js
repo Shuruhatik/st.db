@@ -1,4 +1,4 @@
-import { Database, MySQLDriver } from "st.db";
+import { Database } from "./src";
 const tableName = "my_table"; // Optional: specify the table name
 
 const mysqlConfig = {

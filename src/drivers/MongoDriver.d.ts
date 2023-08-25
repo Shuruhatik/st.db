@@ -1,6 +1,6 @@
 import { MongoClientOptions } from 'mongodb';
-import { ElementKey, ElementValue } from '../types/index';
-export declare class MongoDriver {
+import { ElementKey, ElementValue, Driver } from '../types/index';
+export declare class MongoDriver implements Driver {
     private mongo_url;
     private databaseName;
     private collectionName;

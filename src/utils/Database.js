@@ -10,14 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Database = void 0;
-const drivers_1 = require("../drivers");
+const JSONDriver_1 = require("../drivers/JSONDriver");
 const Encrypt_1 = require("./Encrypt");
 const index_1 = require("./index");
 class Database {
     constructor(options) {
         this.options = options;
         if (!(options === null || options === void 0 ? void 0 : options.driver))
-            this.driver = new drivers_1.JSONDriver();
+            this.driver = new JSONDriver_1.JSONDriver();
         else
             this.driver = options.driver;
         this.readyInDate = new Date();
@@ -376,9 +376,7 @@ class Database {
             if (!new_value && new_value != 0 || !key || !operator)
                 throw Error((0, index_1.formatErrorMessage)("No key or value or operator found", 'Database', 'Method', "math"));
             let element_value = yield this.get(key);
-            console.log(element_value);
             let old_value = element_value && Database.isNumeric(element_value.toString()) ? +element_value : 0;
-            console.log(old_value, eval(`${old_value} ${operator} ${+new_value}`));
             return yield this.set(key, eval(`${old_value} ${operator} ${+new_value}`));
         });
     }

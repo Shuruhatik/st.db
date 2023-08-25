@@ -1,5 +1,5 @@
-import { ElementKey, ElementValue } from "../types/index";
-export declare class CacheDriver {
+import { ElementKey, ElementValue, Driver } from "../types/index";
+export declare class CacheDriver implements Driver {
     collection: Map<string, ElementValue>;
     constructor(collection?: Map<string, ElementValue>);
     clear(): Promise<void>;

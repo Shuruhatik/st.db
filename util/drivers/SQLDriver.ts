@@ -1,9 +1,9 @@
 import sqlDatabase from 'better-sqlite3';
-import { ElementKey, ElementValue } from '../types/index';
+import { ElementKey, ElementValue , Driver } from '../types/index';
 import { existsSync, writeFileSync } from "node:fs";
 import { pathResolve } from "../utils"
 
-export class SQLDriver {
+export class SQLDriver implements Driver {
   private readonly _db: sqlDatabase.Database;
   readonly file_exists: boolean;
   readonly path: string;

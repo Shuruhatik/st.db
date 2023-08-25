@@ -1,5 +1,12 @@
-import { Database } from "./utils/Database";
-import { Table } from "./utils/Table";
-import { FirebaseDriver, CacheDriver, JSONDriver, YAMLDriver, XMLDriver, MongoDriver, PostgresDriver, MySQLDriver, SQLDriver } from "./drivers"
+export { Database } from "./utils/Database";
+export { Table } from "./utils/Table";
 
-export { Database, Table, FirebaseDriver, CacheDriver, JSONDriver, YAMLDriver, XMLDriver, MongoDriver, PostgresDriver, MySQLDriver, SQLDriver }
+export { FirebaseDriver } from "./drivers/FirebaseDriver";
+export { CacheDriver } from "./drivers/CacheDriver";
+export { JSONDriver } from "./drivers/JSONDriver";
+export { MongoDriver } from "./drivers/MongoDriver";
+export { MySQLDriver } from "./drivers/MySQLDriver";
+export { PostgresDriver } from "./drivers/PostgresDriver";
+export { SQLDriver } from "./drivers/SQLDriver";
+export { XMLDriver } from "./drivers/XMLDriver";
+export { YAMLDriver } from "./drivers/YAMLDriver";

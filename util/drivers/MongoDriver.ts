@@ -1,7 +1,7 @@
 import { MongoClient, Collection, MongoClientOptions } from 'mongodb';
-import { ElementKey, ElementValue } from '../types/index';
+import { ElementKey, ElementValue , Driver} from '../types/index';
 
-export class MongoDriver {
+export class MongoDriver implements Driver {
   private _client: MongoClient | null = null;
   private _collection: Collection<any> | null = null;
 

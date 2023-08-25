@@ -1,5 +1,5 @@
-import { ElementKey, ElementValue } from '../types/index';
-export declare class PostgresDriver {
+import { ElementKey, ElementValue, Driver } from '../types/index';
+export declare class PostgresDriver implements Driver {
     private config;
     private tableName;
     private _client;

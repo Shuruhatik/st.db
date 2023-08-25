@@ -1,10 +1,10 @@
 import { existsSync, writeFileSync, readFileSync, statSync } from "node:fs";
 import { pathResolve } from "../utils"
 import { CacheDriver } from "./CacheDriver";
-import { ElementKey, ElementValue } from "../types/index"
+import { ElementKey, ElementValue, Driver } from "../types/index"
 import YAML from "yaml";
 
-export class YAMLDriver extends CacheDriver {
+export class YAMLDriver extends CacheDriver implements Driver {
   readonly file_exists: boolean;
   readonly path: string;
 

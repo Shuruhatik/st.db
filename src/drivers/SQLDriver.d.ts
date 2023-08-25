@@ -1,5 +1,5 @@
-import { ElementKey, ElementValue } from '../types/index';
-export declare class SQLDriver {
+import { ElementKey, ElementValue, Driver } from '../types/index';
+export declare class SQLDriver implements Driver {
     private tableName;
     private readonly _db;
     readonly file_exists: boolean;

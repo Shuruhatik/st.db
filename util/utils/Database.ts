@@ -1,10 +1,10 @@
-import { JSONDriver } from "../drivers"
+import { JSONDriver } from "../drivers/JSONDriver"
 import { Encrypt } from "./Encrypt";
-import { DatabaseOptions, Drivers, Element, ElementKey, ElementValue } from "../types"
+import { DatabaseOptions, Driver, Element, ElementKey, ElementValue } from "../types/"
 import { formatErrorMessage } from "./index";
 
 export class Database {
-  private readonly driver: Drivers
+  private readonly driver: Driver
   readonly readyInDate: Date;
   readonly autoDecrypt: Boolean;
   private encryption?: Encrypt;
@@ -292,10 +292,7 @@ export class Database {
     if (!key) throw Error(formatErrorMessage("No key found", 'Database', 'Method', "math"))
     if (!new_value && new_value != 0 || !key || !operator) throw Error(formatErrorMessage("No key or value or operator found", 'Database', 'Method', "math"))
     let element_value = await this.get(key)
-    console.log(element_value)
     let old_value = element_value && Database.isNumeric(element_value.toString()) ? +element_value : 0
-
-    console.log(old_value, eval(`${old_value} ${operator} ${+new_value}`))
     return await this.set(key, eval(`${old_value} ${operator} ${+new_value}`))
   }
   /**

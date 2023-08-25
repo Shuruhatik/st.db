@@ -1,7 +1,7 @@
 import mysql from 'mysql2/promise';
-import { ElementKey, ElementValue } from '../types/index';
+import { ElementKey, ElementValue, Driver } from '../types/index';
 
-export class MySQLDriver {
+export class MySQLDriver implements Driver {
   private _connection: mysql.Connection | null = null;
 
   constructor(private config: mysql.ConnectionOptions, private tableName = "main") { }

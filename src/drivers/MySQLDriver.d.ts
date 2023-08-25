@@ -1,6 +1,6 @@
 import mysql from 'mysql2/promise';
-import { ElementKey, ElementValue } from '../types/index';
-export declare class MySQLDriver {
+import { ElementKey, ElementValue, Driver } from '../types/index';
+export declare class MySQLDriver implements Driver {
     private config;
     private tableName;
     private _connection;

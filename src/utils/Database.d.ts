@@ -1,4 +1,4 @@
-import { DatabaseOptions, Element, ElementKey, ElementValue } from "../types";
+import { DatabaseOptions, Element, ElementKey, ElementValue } from "../types/";
 export declare class Database {
     readonly options?: DatabaseOptions | undefined;
     private readonly driver;

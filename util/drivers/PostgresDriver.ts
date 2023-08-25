@@ -1,7 +1,7 @@
 import { Client } from 'pg';
-import { ElementKey, ElementValue } from '../types/index';
+import { ElementKey, ElementValue , Driver} from '../types/index';
 
-export class PostgresDriver {
+export class PostgresDriver implements Driver {
   private _client: Client | null = null;
 
   constructor(private config: any, private tableName = "main") { }

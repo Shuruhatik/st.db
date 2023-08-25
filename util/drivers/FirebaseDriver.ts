@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, doc, getDocs, getDoc, setDoc, deleteDoc, Firestore, writeBatch } from 'firebase/firestore';
-import { ElementKey, ElementValue } from '../types/index';
+import { ElementKey, ElementValue, Driver } from '../types/index';
 
 interface FirebaseConfig {
   apiKey: string;
@@ -11,7 +11,7 @@ interface FirebaseConfig {
   appId: string;
 }
 
-export class FirebaseDriver {
+export class FirebaseDriver implements Driver  {
   private db: Firestore;
 
   constructor(private firebaseConfig: FirebaseConfig, private collectionName: string="main") {

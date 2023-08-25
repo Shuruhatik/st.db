@@ -1,7 +1,7 @@
 
-import { ElementKey, ElementValue } from "../types/index"
+import { ElementKey, ElementValue, Driver } from "../types/index"
 
-export class CacheDriver {
+export class CacheDriver implements Driver {
   constructor(public collection = new Map<ElementKey, ElementValue>()) { }
   public async clear() {
     this.collection.clear();

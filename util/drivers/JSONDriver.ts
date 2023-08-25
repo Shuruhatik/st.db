@@ -1,10 +1,10 @@
 import { existsSync, writeFileSync, readFileSync, statSync } from "node:fs";
 import { pathResolve } from "../utils"
 import { CacheDriver } from "./CacheDriver";
-import { ElementKey, ElementValue } from "../types/index"
+import { ElementKey, ElementValue, Driver } from "../types/index"
 
 
-export class JSONDriver extends CacheDriver {
+export class JSONDriver extends CacheDriver implements Driver {
   readonly file_exists: boolean;
   readonly path: string;
 
