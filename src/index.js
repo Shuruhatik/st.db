@@ -1,26 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.YAMLDriver = exports.XMLDriver = exports.SQLDriver = exports.PostgresDriver = exports.MySQLDriver = exports.MongoDriver = exports.JSONDriver = exports.CacheDriver = exports.FirebaseDriver = exports.Table = exports.Database = void 0;
+exports.Table = exports.Database = void 0;
 var Database_1 = require("./utils/Database");
 Object.defineProperty(exports, "Database", { enumerable: true, get: function () { return Database_1.Database; } });
 var Table_1 = require("./utils/Table");
 Object.defineProperty(exports, "Table", { enumerable: true, get: function () { return Table_1.Table; } });
-var FirebaseDriver_1 = require("./drivers/FirebaseDriver");
-Object.defineProperty(exports, "FirebaseDriver", { enumerable: true, get: function () { return FirebaseDriver_1.FirebaseDriver; } });
-var CacheDriver_1 = require("./drivers/CacheDriver");
-Object.defineProperty(exports, "CacheDriver", { enumerable: true, get: function () { return CacheDriver_1.CacheDriver; } });
-var JSONDriver_1 = require("./drivers/JSONDriver");
-Object.defineProperty(exports, "JSONDriver", { enumerable: true, get: function () { return JSONDriver_1.JSONDriver; } });
-var MongoDriver_1 = require("./drivers/MongoDriver");
-Object.defineProperty(exports, "MongoDriver", { enumerable: true, get: function () { return MongoDriver_1.MongoDriver; } });
-var MySQLDriver_1 = require("./drivers/MySQLDriver");
-Object.defineProperty(exports, "MySQLDriver", { enumerable: true, get: function () { return MySQLDriver_1.MySQLDriver; } });
-var PostgresDriver_1 = require("./drivers/PostgresDriver");
-Object.defineProperty(exports, "PostgresDriver", { enumerable: true, get: function () { return PostgresDriver_1.PostgresDriver; } });
-var SQLDriver_1 = require("./drivers/SQLDriver");
-Object.defineProperty(exports, "SQLDriver", { enumerable: true, get: function () { return SQLDriver_1.SQLDriver; } });
-var XMLDriver_1 = require("./drivers/XMLDriver");
-Object.defineProperty(exports, "XMLDriver", { enumerable: true, get: function () { return XMLDriver_1.XMLDriver; } });
-var YAMLDriver_1 = require("./drivers/YAMLDriver");
-Object.defineProperty(exports, "YAMLDriver", { enumerable: true, get: function () { return YAMLDriver_1.YAMLDriver; } });
 //# sourceMappingURL=index.js.map
