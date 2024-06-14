@@ -431,7 +431,7 @@ class Database {
         return __awaiter(this, void 0, void 0, function* () {
             if (!value && value != 0 || !key)
                 throw Error((0, index_1.formatErrorMessage)("No key or value found", 'Database', 'Method', "add"));
-            yield this.math(key, "+", `${value}`);
+            yield this.math(key, "-", `${value}`);
         });
     }
     /**
