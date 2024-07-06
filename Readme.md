@@ -53,7 +53,7 @@ npm install st.db
 
    - **MongoDB**:
      ```bash
-     npm install @st.db/
+     npm install @st.db/mongodb
      ```
 
    - **PostgreSQL**:
