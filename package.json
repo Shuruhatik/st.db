@@ -1,19 +1,9 @@
 {
   "name": "st.db",
-  "version": "7.2.9",
+  "version": "7.2.10",
   "description": "ST.db is a versatile npm package for managing databases with a simple key-value interface. It supports various database types, offers seamless switching between drivers, efficient caching, encryption, and customizable configurations. Ideal for diverse projects with clear documentation.",
   "main": "src/index.js",
   "types": "src/index.d.ts",
-  "exports": {
-    ".": {
-      "require": "./src/index.js",
-      "types": "./src/index.d.ts"
-    },
-    "./src/drivers/*": "./src/drivers/*.js",
-    "./src/drivers/*.js": {
-      "types": "./src/drivers/*.d.ts"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Shuruhatik/st.db"
@@ -57,7 +47,9 @@
   "author": "shuruhatik",
   "license": "CC BY-NC-ND 4.0",
   "devDependencies": {
-    "@types/node": "^18.7.6",
-    "yaml": "2.x"
+    "@types/node": "^18.7.6"
+  },
+  "dependencies": {
+    "yaml": "^2.4.5"
   }
 }
