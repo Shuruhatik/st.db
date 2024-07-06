@@ -391,7 +391,7 @@ await table.clear();
 -  **[Documentation](https://st-db.netlify.app/)**
 
 ## Sponsors 
-- Love what I do? Send me some [coffee](https://buymeacoff.ee/shuruhatik)!?  ☕
+- Love what I do? Send me some [coffee](https://buymeacoff.ee/shuruhatik)!? ☕
 
 - Can't send coffees?  😥  Nominate me for a  **[st.db: Reviews | Openbase](https://openbase.com/js/st.db/reviews)**  instead! Your support will help me to continue working on open-source projects like this.  🙏😇
 ## Help
