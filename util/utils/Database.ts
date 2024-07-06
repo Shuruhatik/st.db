@@ -175,7 +175,7 @@ export class Database {
    * @param {*} value 
    * @returns {"string"}
    */
-  encryptString(value: string = "hi"): string {
+  encryptString(value: string = "data"): string {
     if (!this.encryption) return "";
     return this.encryption.encrypt(JSON.stringify(value));
   }
@@ -312,7 +312,7 @@ export class Database {
    * @returns {Promise<void>}
    */
   async multiply(key: ElementKey, value: ElementValue): Promise<ElementValue | undefined | void> {
-    if (!value && value != 0 || !key) throw Error(formatErrorMessage("No key or value found", 'Database', 'Method', "add"))
+    if (!value && value != 0 || !key) throw Error(formatErrorMessage("No key or value found", 'Database', 'Method', "multiply"))
     await this.math(key, "*", `${value}`);
   }
   /**
@@ -322,8 +322,8 @@ export class Database {
    * @returns {Promise<void>}
    */
   async double(key: ElementKey): Promise<ElementValue | undefined | void> {
-    if (!key) throw Error(formatErrorMessage("No key or value found", 'Database', 'Method', "add"))
-    await this.math(key, "+", 2);
+    if (!key) throw Error(formatErrorMessage("No key or value found", 'Database', 'Method', "double"))
+    await this.math(key, "*", 2);
   }
   /**
    * @example <db>.subtract("coins", 50)
@@ -332,8 +332,8 @@ export class Database {
    * @returns {Promise<void>}
    */
   async subtract(key: ElementKey, value: ElementValue): Promise<ElementValue | undefined | void> {
-    if (!value && value != 0 || !key) throw Error(formatErrorMessage("No key or value found", 'Database', 'Method', "add"))
-    await this.math(key, "+", `${value}`);
+    if (!value && value != 0 || !key) throw Error(formatErrorMessage("No key or value found", 'Database', 'Method', "subtract"))
+    await this.math(key, "-", `${value}`);
   }
   /**
    * @description Check if the value is numeric

@@ -13,7 +13,7 @@
 	</p>
 </div>
 
-## [![Verified on Openbase](https://badges.openbase.com/js/verified/st.db.svg?style=openbase&token=n0ITf+jfjG5ZaYVYIbhXfTnRU4pK5LyewQE1aIMAHls=)](https://openbase.com/js/st.db?utm_source=embedded&amp;utm_medium=badge&amp;utm_campaign=rate-badge) About
+## About
 **ST.db** is a powerful npm package that provides an easy-to-use key-value interface for managing various types of databases, both local and cloud-based. This package simplifies the process of reading, writing, and seamlessly switching between different database engines. Whether you're working with local databases or cloud-based solutions, **st.db** offers a straightforward and efficient way to interact with your data.
 
 ## Features ✨
@@ -44,36 +44,31 @@ npm install st.db
 
 2. Depending on the specific database drivers you intend to use, you will need to install the corresponding packages. Here are the drivers and their associated packages:
 	- **JSON and Cache**: 
-	The JSONDriver and CacheDriver does not require any additional package installation.
+	The JSONDriver, YAMLDriver, XMLDriver and CacheDriver does not require any additional package installation.
 
-   - **better-sqlite3** (SQLite):
+   - **SQL**:
      ```bash
-     npm install better-sqlite3
+     npm install @st.db/sql
      ```
 
-   - **mongodb** (MongoDB):
+   - **MongoDB**:
      ```bash
-     npm install mongodb
+     npm install @st.db/
      ```
 
-   - **pg** (PostgreSQL):
+   - **PostgreSQL**:
      ```bash
-     npm install pg
+     npm install @st.db/postgres
      ```
 
-   - **firebase** (Firebase):
+   - **Firebase**:
      ```bash
-     npm install firebase
+     npm install @st.db/firebase
      ```
 
-   - **mysql2** (MySQL):
+   - **MySQL**:
      ```bash
-     npm install mysql2
-     ```
-
-   - **yaml** (YAML):
-     ```bash
-     npm install yaml
+     npm install @st.db/mysql
      ```
 
    Note: These packages are marked as optional, meaning you only need to install the ones that correspond to the specific database drivers you plan to use. If you're not using a particular driver, you can skip installing its associated package.
@@ -152,7 +147,9 @@ const db = new Database(options);
 ### Using MySQLDriver
 The `MySQLDriver` connects to MySQL databases and provides data management features. Here's how to set it up:
 ```javascript
-import { Database, MySQLDriver } from "st.db";
+import { Database } from "st.db";
+import { MySQLDriver  } from "@st.db/mysql";
+
 const tableName = "my_table"; // Optional: specify the table name
 
 const mysqlConfig = {
@@ -172,8 +169,8 @@ const db = new Database(options);
 ### Using MongoDriver
 The `MongoDriver` enables interaction with MongoDB databases. Here's how to use it:
 ```javascript
-import { Database, MongoDriver } from "st.db";
-
+import { Database } from "st.db";
+import { MongoDriver } from "@st.db/mongodb";
 const mongoUrl = "mongodb://localhost:27017";
 const dbName = "my_database";
 const collectionName = "my_collection";
@@ -188,7 +185,8 @@ const db = new Database(options);
 ### Using FirebaseDriver 
 The `FirebaseDriver` enables interaction with Firestore databases. Here's how to use it:
 ```javascript
-import { Database, FirebaseDriver } from "st.db";
+import { Database } from "st.db";
+import { FirebaseDriver } from "@st.db/firebase";
 
 // Replace these values with your actual Firebase configuration
 const firebaseConfig = {
@@ -224,7 +222,9 @@ const db = new Database(options);
 ### Using PostgresDriver
 The `PostgresDriver` enables interaction with PostgreSQL databases. Here's how to use it:
 ```javascript
-import { Database, PostgresDriver } from "st.db";
+import { Database } from "st.db";
+import { PostgresDriver  } from "@st.db/postgres";
+
 const tableName = "my_table"; // Optional: specify the table name
 const postgresConfig = {
   user: "username",
@@ -243,7 +243,8 @@ const db = new Database(options);
 ### Using SQLDriver
 The `SQLDriver` provides an interface for general SQL databases. Here's how you can use it:
 ```javascript
-import { Database, SQLDriver } from "st.db";
+import { Database } from "st.db";
+import { SQLDriver  } from "@st.db/sql";
 const tableName = "my_table"; // Optional: specify the table name
 const options = {
   driver: new SQLDriver("data.sqlite", tableName), // Specify the SQLDriver and the SQLite database file name

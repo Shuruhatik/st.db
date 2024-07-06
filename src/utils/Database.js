@@ -232,7 +232,7 @@ class Database {
      * @param {*} value
      * @returns {"string"}
      */
-    encryptString(value = "hi") {
+    encryptString(value = "data") {
         if (!this.encryption)
             return "";
         return this.encryption.encrypt(JSON.stringify(value));
@@ -402,7 +402,7 @@ class Database {
     multiply(key, value) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!value && value != 0 || !key)
-                throw Error((0, index_1.formatErrorMessage)("No key or value found", 'Database', 'Method', "add"));
+                throw Error((0, index_1.formatErrorMessage)("No key or value found", 'Database', 'Method', "multiply"));
             yield this.math(key, "*", `${value}`);
         });
     }
@@ -415,8 +415,8 @@ class Database {
     double(key) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!key)
-                throw Error((0, index_1.formatErrorMessage)("No key or value found", 'Database', 'Method', "add"));
-            yield this.math(key, "+", 2);
+                throw Error((0, index_1.formatErrorMessage)("No key or value found", 'Database', 'Method', "double"));
+            yield this.math(key, "*", 2);
         });
     }
     /**
@@ -428,8 +428,8 @@ class Database {
     subtract(key, value) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!value && value != 0 || !key)
-                throw Error((0, index_1.formatErrorMessage)("No key or value found", 'Database', 'Method', "add"));
-            yield this.math(key, "+", `${value}`);
+                throw Error((0, index_1.formatErrorMessage)("No key or value found", 'Database', 'Method', "subtract"));
+            yield this.math(key, "-", `${value}`);
         });
     }
     /**
